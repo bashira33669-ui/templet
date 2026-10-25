@@ -1,0 +1,803 @@
+/* ===== General Settings ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #1b2c45;
+  min-width: 320px;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+/* ===== Top Navbar ===== */
+.navbar {
+  width: 100%;
+  min-height: 82px;
+  padding: 15px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #102c50;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* Search Bar Container inside Menu */
+.nav-search-container {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-left: auto; 
+  margin-right: 15px; 
+  max-width: 180px;
+  transition: all 0.3s ease;
+}
+
+.nav-search-container input {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #fff;
+  font-size: 13px;
+  padding: 4px;
+  width: 110px;
+}
+
+.nav-search-container input::placeholder {
+  color: #ddd;
+}
+
+.nav-search-container button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  min-width: 0;
+}
+
+.logo-title {
+  color: #ffffff;
+  font-size: clamp(17px, 2.5vw, 26px);
+  font-weight: bold;
+}
+
+.logo-subtitle {
+  color: #e7c66b;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+/* ===== Hamburger Button ===== */
+.menu-toggle {
+  width: 48px;
+  height: 46px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menu-toggle:hover {
+  background: #d4af37;
+}
+
+.menu-toggle span {
+  width: 23px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 5px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.menu-toggle:hover span {
+  background: #102c50;
+}
+
+/* Turn 3 lines into X */
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===== Dark Overlay ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 18, 35, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  z-index: 1001;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===== Side Menu ===== */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(350px, 88vw);
+  height: 100vh;
+  height: 100dvh;
+  padding: 30px 22px;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: -8px 0 35px rgba(0, 0, 0, 0.15);
+  transform: translateX(105%);
+  transition: transform 0.35s ease;
+  z-index: 1002;
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+
+.menu-header {
+  padding: 12px 10px 22px;
+  margin-bottom: 22px;
+  border-bottom: 2px solid #d4af37;
+}
+
+.menu-header h2 {
+  font-size: 24px;
+  color: #102c50;
+}
+
+.menu-header p {
+  margin-top: 8px;
+  color: #9a7820;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+/* Menu Links */
+.side-menu a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 12px;
+  margin-bottom: 7px;
+  color: #263b58;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 9px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.side-menu a span {
+  width: 25px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.side-menu a:hover,
+.side-menu a:focus-visible {
+  background: #102c50;
+  color: #ffffff;
+  outline: none;
+}
+
+.menu-footer {
+  margin-top: 25px;
+  padding: 17px 10px;
+  text-align: center;
+  background: #f1f4f8;
+  border-radius: 9px;
+  color: #66758a;
+  font-size: 13px;
+}
+
+/* ===== Homepage Hero ===== */
+.hero {
+  min-height: 65vh;
+  padding: 70px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #102c50, #245486);
+}
+
+.welcome-text {
+  color: #e7c66b;
+  font-size: 14px;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  max-width: 900px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.hero-button {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 24px;
+  border-radius: 8px;
+  background: #e7c66b;
+  color: #102c50;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.hero-button:hover {
+  background: #ffffff;
+}
+
+
+/* ===== About Section ===== */
+.about-section {
+  width: min(100% - 40px, 1000px);
+  margin: 50px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 5px 20px rgba(16, 44, 80, 0.07);
+}
+
+.about-section h2 {
+  margin-bottom: 16px;
+  color: #102c50;
+  font-size: clamp(23px, 3vw, 32px);
+}
+
+.about-section p {
+  line-height: 1.9;
+  color: #526174;
+}
+
+
+
+/* ===== Responsive Settings ===== */
+@media (max-width: 600px) {
+  .navbar {
+    min-height: 72px;
+    padding: 12px 4%;
+  }
+
+  .logo-title {
+    font-size: 17px;
+  }
+
+  .logo-subtitle {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .menu-toggle {
+    width: 43px;
+    height: 42px;
+  }
+
+  .side-menu {
+    padding: 24px 18px;
+  }
+
+  .hero {
+    min-height: 55vh;
+    padding: 55px 20px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .about-section {
+    width: calc(100% - 28px);
+    margin: 25px auto;
+    padding: 22px;
+  }
+}
+<!-- College Info Cards Section CSS -->
+<style>
+.college-info-section {
+  width: 100%;
+  padding: 40px 20px;
+  background-color: #f4f6f9; /* Apni website ki theme ke mutabiq background color adjust kar sakti hain */
+  box-sizing: border-box;
+}
+
+.info-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.info-card {
+  flex: 1;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid #102c50; /* Apki website ke navbar color se match karta hua border */
+}
+
+.info-card h2 {
+  font-size: 20px;
+  color: #102c50;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #eaeaea;
+  padding-bottom: 8px;
+}
+
+.info-card p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+
+
+/* Responsive design for tablets and mobile phones */
+@media screen and (max-width: 768px) {
+  .info-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+/* Facilities Section Styling */
+.facilities-section {
+  width: 100%;
+  padding: 50px 20px;
+  background-color: #f9fbfd;
+  box-sizing: border-box;
+}
+
+.facilities-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Center Heading */
+.facilities-title {
+  text-align: center;
+  font-size: 28px;
+  color: #102c50;
+  margin-bottom: 40px;
+  font-weight: 700;
+  position: relative;
+}
+
+.facilities-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f4b642; /* Optional highlight underline */
+  margin: 8px auto 0 auto;
+}
+
+/* 4 Boxes Grid Layout */
+.facilities-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.facility-card {
+  flex: 1;
+  min-width: 240px;
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border-top: 4px solid #102c50;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.facility-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.facility-card h3 {
+  font-size: 18px;
+  color: #102c50;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.facility-card p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.facility-icon {
+  font-size: 35px;
+  color: #102c50; /* Apni pasand ka color rakh sakti hain */
+  margin-bottom: 15px;
+  display: block;
+}
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 900px) {
+  .facility-card {
+    flex: 1 1 calc(50% - 20px); /* Tablets par 2 boxes ek line mein */
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .facility-card {
+    flex: 1 1 100%H; /* Mobile phones par 1 ke neeche 1 aa jayega */
+  }
+}
+/* AD Programs Section Styling */
+.ad-programs-section {
+  width: 100%;
+  padding: 50px 20px;
+  background-color: #ffffff; /* Apni website ki theme ke mutabiq background change kar sakti hain */
+  box-sizing: border-box;
+}
+
+.ad-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Center Headings */
+.ad-main-title {
+  text-align: center;
+  font-size: 28px;
+  color: #102c50;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.ad-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+  font-weight: 500;
+  position: relative;
+}
+
+.ad-subtitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f4b642; /* Optional highlight underline */
+  margin: 10px auto 0 auto;
+}
+
+/* 4 Boxes Grid Layout */
+.ad-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ad-card {
+  flex: 1;
+  min-width: 240px;
+  background: #f4f6f9;
+  padding: 25px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid #102c50;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ad-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.ad-card h3 {
+  font-size: 18px;
+  color: #102c50;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.ad-card p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 900px) {
+  .ad-card {
+    flex: 1 1 calc(50% - 20px); /* Tablets par 2 dabbe ek line mein */
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .ad-card {
+    flex: 1 1 100%; /* Mobile phones par 1 ke neeche 1 aa jayega */
+  }
+}
+/* B.Ed Programs Section Styling */
+.bed-programs-section {
+  width: 100%;
+  padding: 50px 20px;
+  background-color: #f4f6f9; /* Theme ke mutabiq background */
+  box-sizing: border-box;
+}
+
+.bed-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Center Headings */
+.bed-main-title {
+  text-align: center;
+  font-size: 28px;
+  color: #102c50;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.bed-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 40px;
+  font-weight: 500;
+  position: relative;
+}
+
+.bed-subtitle::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #f4b642; /* Highlight underline */
+  margin: 10px auto 0 auto;
+}
+
+/* 4 Boxes Grid Layout */
+.bed-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.bed-card {
+  flex: 1;
+  min-width: 240px;
+  background: #ffffff;
+  padding: 25px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-top: 4px solid #102c50;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.bed-card h3 {
+  font-size: 18px;
+  color: #102c50;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.bed-card p {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 900px) {
+  .bed-card {
+    flex: 1 1 calc(50% - 20px); /* Tablets par 2 dabbe ek line mein */
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .bed-card {
+    flex: 1 1 100%; /* Mobile phones par 1 ke neeche 1 aa jayega */
+  }
+}
+
+
+/* Professional Footer Styling */
+.footer {
+  background-color: #102c50; /* Apki website ke navbar theme color se match karta hua */
+  color: #fff;
+  padding-top: 50px;
+  font-family: inherit;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-col h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.footer-col p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.footer-btn {
+  display: inline-block;
+  padding: 6px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  font-size: 11px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.footer-btn:hover {
+  background: #fff;
+  color: #102c50;
+}
+
+.follow-title {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  transition: background 0.3s;
+}
+
+.social-icons a:hover {
+  background: #f4b642; /* Highlight color on hover */
+  color: #102c50;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-col ul li a span {
+  color: #f4b642;
+  margin-right: 5px;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+  padding-left: 3px;
+}
+
+.contact-info {
+  font-size: 13px;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  background-color: rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* Responsive design for tablets and mobile phones */
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
